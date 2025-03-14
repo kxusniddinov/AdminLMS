@@ -7,7 +7,7 @@ from .forms import FacultyForm, ChairForm, SubjectForm, StudentForm, GroupForm, 
 
 
 def login_required_decorator(func):
-    return login_required(login_url="login_page")
+    return login_required(func, login_url="login_page")
 
 
 @login_required_decorator
@@ -21,7 +21,7 @@ def login_page(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, password=password, username=username)
-        if user is None:
+        if user is not None:
             login(request, user)
             return redirect("home_page")
 
@@ -60,7 +60,7 @@ def faculty_create(request):
         "model": model,
         "form": form
     }
-    return render(request, "faculty_form.html", ctx)
+    return render(request, "faculty/form.html", ctx)
 
 
 @login_required_decorator

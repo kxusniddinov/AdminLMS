@@ -149,7 +149,6 @@ def chair_delete(request, pk):
 @login_required_decorator
 def chair_list(request):
     chairs = services.get_chairs()
-    print(chairs)
     ctx = {
         "chairs": chairs
     }
